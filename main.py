@@ -272,10 +272,15 @@ def test():
 def main():
 
 # Create a graph given in the above diagram
+    """
     fileName = sys.argv[1] ##commandline file name input
     dF = pd.read_csv(fileName) ##auxiliary function from pandas to convert to csv into manipulatable data frame
 
     graph = unweightedDirected(dF)
+    """
+    fileName = "mat.csv" ##commandline file name input
+    dF = pd.read_csv(fileName, header=None) ##auxiliary function from pandas to convert to csv into manipulatable data frame
+    graph = incidenceMatrix(dF)
     tarjan = TarjanSCC(graph)
     tarjan.tarjan()
     tarjan.filter(graph)
@@ -310,7 +315,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-    test()
+    ##test()
 
 
 
