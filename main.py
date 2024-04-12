@@ -312,9 +312,32 @@ def main():
         #aux.append(gcd_array(find_nonzero_powers(adjacency_list_to_incidence_matrix(make_sub_adjList(scc, graph)))))
 
     #print(aux)
+def outputOne():
+    fileName = sys.argv[1] ##commandline file name input
+    dF = pd.read_csv(fileName, header=None) ##auxiliary function from pandas to convert to csv into manipulatable data frame
+    graph = incidenceMatrix(dF)
+    tarjan = TarjanSCC(graph)
+    tarjan.tarjan()
+    tarjan.filter(graph)
+    aux = []
+
+    with open('demofile2.txt','w') as data:
+        
+        for scc in tarjan.scc_list:
+            auxDict = make_sub_adjList(scc, graph)
+            aux.append(gcd_array(find_nonzero_powers(adjacency_list_to_incidence_matrix(auxDict))))
+    
+        if (len(set(aux))== 1):
+            if (set(aux).pop() == 1):
+                data.write("1")
+            else:
+                data.write("0")
+        else:
+            data.write("0")
 
 if __name__ == "__main__":
-    main()
+    ##main()
+    outputOne()
     ##test()
 
 
